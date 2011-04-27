@@ -14,8 +14,9 @@ public:
     explicit robotField(QGraphicsView *parent = 0);
     //void drawField();
     void changeFlag();
+    void drawRobot();
 protected:
-
+    void mouseReleaseEvent(QMouseEvent *event);
 signals:
 
 public slots:
@@ -32,7 +33,7 @@ private:
     bool flag;
   //  QPainter *myP;
     QGraphicsScene *scene;
-
+    QGraphicsRectItem *robot;
     QSize cellSize;
     QSize startzoneSize;
     QSize greenzoneSize;

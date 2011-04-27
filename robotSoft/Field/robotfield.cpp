@@ -3,7 +3,7 @@
 #include <QPainter>
 #include <QColor>
 #include <QSize>
-
+#include <QGraphicsRectItem>
 robotField::robotField(QGraphicsView *parent) :
     QGraphicsView(parent)
 {
@@ -16,6 +16,10 @@ robotField::robotField(QGraphicsView *parent) :
     setMinimumSize(300,210);
     setWindowTitle(tr("Simulation robot"));
     drawField();
+    robot=(scene->addRect(100,100,10,10,QPen(Qt::yellow),QBrush(Qt::yellow)));
+    robot->setData(0,"Robot");
+    // *(scene->addRect(10,10,10,10));
+
 }
 void robotField::drawField()
 {
@@ -28,7 +32,6 @@ void robotField::drawField()
 
     scene->addRect(blackLines[0].x(),blackLines[0].y(),blackLineSize.width(),blackLineSize.height(),QPen(Qt::black),QBrush(Qt::black));
     scene->addRect(blackLines[1].x(),blackLines[1].y(),blackLineSize.width(),blackLineSize.height(),QPen(Qt::black),QBrush(Qt::black));
-
 
     bool fl=true;
     for(int i=0;i<M;i++)
@@ -44,6 +47,16 @@ void robotField::drawField()
         fl=!fl;
     }
    }
+}
+void robotField::mouseReleaseEvent(QMouseEvent *event)
+{
+    drawRobot();
+}
+
+void robotField::drawRobot()
+{
+   // robot->translate(20,20);
+       // robot->rotate(-2.6);
 }
 
 void robotField::initZonesSize()

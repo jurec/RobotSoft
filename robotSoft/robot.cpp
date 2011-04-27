@@ -7,7 +7,7 @@ robot::robot(QObject *parent) :
     QObject(parent)
 {
     connect(&robotCamera,SIGNAL(dataReady()),this,SLOT(displayData()));
-        sett=new QSettings("settings.ini",QSettings::IniFormat);
+    sett=new QSettings("settings.ini",QSettings::IniFormat);
     connect(&ssSystem,SIGNAL(start1()),this,SLOT(start()));
     connect(&ssSystem,SIGNAL(stop()),this,SLOT(stop()));
 }
