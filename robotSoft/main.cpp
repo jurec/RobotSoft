@@ -4,15 +4,20 @@
 #include <iostream>
 #include <robot.h>
 #include <QGraphicsView>
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    robot *b=new robot();
-   robotField *myF=new robotField();
+    robot *myRobot=new robot();
 
+    robotField *myF=new robotField;
+    myRobot->setWidth(23);
+    myRobot->setLength(34);
+    myRobot->setRobotCenter();
+    myRobot->setRed();
+    myF->drawRobot(myRobot->getRobotParametrs());
     myF->show();
-     std::cout<<sizeof(myF);
+//    myF->show();
+//     std::cout<<sizeof(myF);
    // myF.drawRobot();
    // myF.drawRobot();
   //  QWidget widget;
@@ -28,7 +33,7 @@ int main(int argc, char *argv[])
 //    view.setScene(&scene);
 
 //    view.show();
-     delete b;
+    // delete b;
 
     return a.exec();
 }

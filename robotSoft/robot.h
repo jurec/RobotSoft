@@ -11,6 +11,7 @@
 #include <QPoint>
 #include <Devices/startstopdevice.h>
 #include <qmath.h>
+#include <robotparameters.h>
 class robot : public QObject
 {
     Q_OBJECT
@@ -18,7 +19,7 @@ public:
     explicit robot(QObject *parent = 0);
     void action();
     ~robot();
-    enum teamColors{RED=0,BLUE=1};
+   // enum teamColors{RED=0,BLUE=1};
     //Команды которые может выполнять робот
         //команды схвата
     void pickUp();//Схватить пешку и
@@ -35,10 +36,7 @@ public:
 
         //определение цели и маршрута движения
 
-
-
     void simple_action(int angle, int distance,bool isForwardDirection, bool isPick);
-
 
     QString getTongState();
 
@@ -47,37 +45,40 @@ public:
     //void changeRobotCoordinate(int x,int y){robotCoordinate.x+=x;robotCoordinate.y+=y;}
 
     void setAngle(int angle_){angle=angle_;}
-    void setWidth(int width_){width=width_;}
-    void setLength(int length_){length=length_;}
-
-    QRect getRobot(){return QRect(0,0,25,35);}
+    void setWidth(int width_){robotParameter->robotModel.setWidth(width_);}
+    void setLength(int length_){robotParameter->robotModel.setHeight(length_);}
+    void setRobotCenter(){
+        robotParameter->robotCenter.setX(getWidth()/2);
+        robotParameter->robotCenter.setY(getLength()/2);}
+    void setRed(){robotParameter->isRed=true;}
+    void setBlue(){robotParameter->isRed=false;}
+    void setRobotCenter(QPointF point){robotParameter->robotCenter=point;}
+    //QRect getRobot(){return QRect(0,0,25,35);}
    // QPoint getRobotCoordinate(){return robotCoordinate;}
   //  int getXCoordinate(){return xCoordinate;}
   //  int getYCoordinate(){return yCoordinate;}
     int getAngle(){return angle;}
-    int getWidth(){return width;}
-    int getLength(){return length;}
-
+    int getWidth(){return robotParameter->robotModel.width();}
+    int getLength(){return robotParameter->robotModel.height();}
+    QPointF getRobotCenter(){return robotParameter->robotCenter;}
+    robotParameters* getRobotParametrs(){return robotParameter;}
     void init_devices();
     void readSettings();
     void writeSettings();
 
-    QPoint robotCoordinate;//Координаты центра робота
+    QPointF robotCoordinate;//Координаты центра робота
 
 signals:
    // void readSettingsError(QString);
 public slots:
- //   void showReadSettingsError();
+
     void displayData();
     void stop();//Запускается по истечении времени
     void start();//Запускает программу
 private:
-    teamColors robotColor;
+  //  teamColors robotColor;
     QSettings *sett;
-  //  int xCoordinate;
-  //  int yCoordinate;
-    int width;
-    int length;
+    robotParameters *robotParameter;
     int angle;
     startStopDevice ssSystem;
     camera robotCamera;

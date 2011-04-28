@@ -1,11 +1,10 @@
 #include "robotfield.h"
-#include <QtGui/QWidget>
-#include <QPainter>
-#include <QColor>
-#include <QSize>
+
+
 #include <QDebug>
 #include <QGraphicsRectItem>
 #include <QGraphicsView>
+#include <QKeyEvent>
 robotField::robotField(QGraphicsView *parent) :
     QGraphicsView(parent)
 {
@@ -19,10 +18,10 @@ robotField::robotField(QGraphicsView *parent) :
    // setMinimumSize(300,210);
   //  setWindowTitle(tr("Simulation robot"));
  //   setRenderHints(QPainter::Antialiasing);
-
     setScene(scene);
     drawField();
-    drawRobot();
+    //
+ //   drawRobot();
     // *(scene->addRect(10,10,10,10));
 }
 void robotField::drawField()
@@ -52,25 +51,72 @@ void robotField::drawField()
     }
    }
 }
-void robotField::mouseReleaseEvent(QMouseEvent *event)
-{
-    qDebug("hello");
-
-    //emit{mousePressed();}
-}
 
 void robotField::drawRobot()
 {
-    robot=(scene->addRect(0,0,23,34,QPen(Qt::cyan),QBrush(Qt::cyan)));
-    robotCenter=new QPointF(11.5,17);
+
+
     robot->setTransformOriginPoint(*robotCenter);
-
     robot->setFlag(QGraphicsItem::ItemIsMovable);
-
     robot->setData(0,"Robot");
    //robot->setRotation(robot->rotation()+15);
-   //qDebug()<<robot->x()<<" "<<robot->y();
+   //<<robot->x()<<" "<<robot->y();
 }
+void robotField::calculateCenter()//Пересчитывает координаты центра
+{
+   robotCenter->setX(
+           (robotRect->topLeft().x()+robotRect->bottomRight().x())/2);
+   robotCenter->setY(
+           (robotRect->topLeft().y()+robotRect->bottomRight().y())/2);
+}
+
+void robotField::drawRobot(robotParameters *robotParameter)
+{
+
+   // robotCenter=b->robotCenter;
+    robotCenter = new QPointF(robotParameter->robotCenter);
+    robotRect = new QRect(robotParameter->robotModel);
+    isRed=robotParameter->isRed;
+    if(!isRed)
+    {
+       robot=(scene->addRect(*robotRect,QPen(Qt::blue),QBrush(Qt::white)));
+       robotRect->setX(277);
+       robotRect->setY(0);
+       robotRect->setWidth(23);
+       robotRect->setHeight(34);
+    }
+    else
+    {
+        robot=(scene->addRect(*robotRect,QPen(Qt::red),QBrush(Qt::white)));
+    }
+      //  robotRect->setX(0);
+    robotRect->setY(0);
+    drawRobot();
+}
+void robotField::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key()==Qt::Key_Up)
+        moveRobot(10,0);
+}
+
+void robotField::moveRobot(int x, int y)
+{
+    robot->moveBy(x,y);
+    // Перемещаем робота обновляем координаты
+    calculateCenter();
+    qDebug()<<robot->x()<<" "<<robot->y()<<"\n";
+}
+
+//void robotField::drawRobot(QPointF &center)
+//{
+//     robotCenter=new QPointF(center);//11.5,17
+//     drawRobot();
+//}
+//void robotField::drawRobot(qreal xCenter, qreal yCenter)
+//{
+//    robotCenter=new QPointF(xCenter,yCenter);
+//    drawRobot();
+//}
 
 void robotField::initZonesSize()
 {
@@ -100,9 +146,7 @@ void robotField::initZonesSize()
 }
 
 
-
 robotField::~robotField()
 {
    delete scene;
-  // delete robot;
 }

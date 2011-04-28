@@ -10,6 +10,7 @@ robot::robot(QObject *parent) :
 //    sett=new QSettings("settings.ini",QSettings::IniFormat);
 //    connect(&ssSystem,SIGNAL(start1()),this,SLOT(start()));
 //    connect(&ssSystem,SIGNAL(stop()),this,SLOT(stop()));
+    robotParameter=new robotParameters;
 }
 void robot::displayData()
 {
