@@ -47,7 +47,7 @@ public:
     //void changeRobotCoordinate(int x,int y){robotCoordinate.x+=x;robotCoordinate.y+=y;}
 
     void setAngle(int angle_){angle=angle_;}
-    void setWidth(int width_){width=width;}
+    void setWidth(int width_){width=width_;}
     void setLength(int length_){length=length_;}
 
     QRect getRobot(){return QRect(0,0,25,35);}

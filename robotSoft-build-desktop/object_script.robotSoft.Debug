@@ -14,6 +14,7 @@ INPUT(
 ./debug/robot.o
 ./debug/robotfield.o
 ./debug/cell.o
+./debug/command.o
 ./debug/moc_tcpsocketdevice.o
 ./debug/moc_startstopdevice.o
 ./debug/moc_modbusdevice.o
@@ -22,4 +23,5 @@ INPUT(
 ./debug/moc_robot.o
 ./debug/moc_robotfield.o
 ./debug/moc_cell.o
+./debug/moc_command.o
 );

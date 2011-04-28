@@ -3,20 +3,31 @@
 #include <QPainter>
 #include <QColor>
 #include <QSize>
+#include <QDebug>
 #include <QGraphicsRectItem>
+#include <QGraphicsView>
 robotField::robotField(QGraphicsView *parent) :
     QGraphicsView(parent)
 {
+    connect(this,SIGNAL(mousePressed()),this,SLOT(drawRobot()));
     initZonesSize();
-
-    scene = new QGraphicsScene(this);
-   // scene->setItemIndexMethod(QGraphicsScene::BspTreeIndex);
+    //widget = new QGraphicsWidget();
+    scene = new QGraphicsScene();
+ //   scene->setItemIndexMethod(QGraphicsScene::BspTreeIndex);
     scene->setSceneRect(0,0,300,210);
+    // setViewport();
+   // setMinimumSize(300,210);
+  //  setWindowTitle(tr("Simulation robot"));
+ //   setRenderHints(QPainter::Antialiasing);
+
     setScene(scene);
-    setMinimumSize(300,210);
-    setWindowTitle(tr("Simulation robot"));
     drawField();
-    robot=(scene->addRect(100,100,10,10,QPen(Qt::yellow),QBrush(Qt::yellow)));
+    robot=(scene->addRect(0,0,23,34,QPen(Qt::cyan),QBrush(Qt::cyan)));
+
+ //
+
+    robot->setFlag(QGraphicsItem::ItemIsMovable);
+
     robot->setData(0,"Robot");
     // *(scene->addRect(10,10,10,10));
 
@@ -50,13 +61,21 @@ void robotField::drawField()
 }
 void robotField::mouseReleaseEvent(QMouseEvent *event)
 {
-    drawRobot();
+    qDebug("hello");
+
+    emit{mousePressed();}
 }
 
 void robotField::drawRobot()
 {
-   // robot->translate(20,20);
-       // robot->rotate(-2.6);
+   robot->setTransformOriginPoint(11.5,17);
+   robot->setRotation(robot->rotation()+15);
+ //  qDebug()<<;
+
+   // robot->moveBy(20,0);
+    qDebug()<<robot->x()<<" "<<robot->y();
+   //robot->translate(50,50);
+   //robot->setRotation(0);
 }
 
 void robotField::initZonesSize()
@@ -91,3 +110,8 @@ void robotField::changeFlag()
     flag= !flag;
 }
 
+robotField::~robotField()
+{
+   delete scene;
+  // delete robot;
+}

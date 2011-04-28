@@ -29,7 +29,8 @@ SOURCES += main.cpp \
     robotcommands.cpp \
     robot.cpp \
     Field/robotfield.cpp \
-    Field/cell.cpp
+    Field/cell.cpp \
+    Command/command.cpp
 
 HEADERS += \
     Devices/tongdevice.h \
@@ -49,4 +50,5 @@ HEADERS += \
     robotcommands.h \
     robot.h \
     Field/robotfield.h \
-    Field/cell.h
+    Field/cell.h \
+    Command/command.h
