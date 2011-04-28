@@ -1,26 +1,25 @@
 #ifndef ROBOTFIELD_H
 #define ROBOTFIELD_H
 
-#include <QtGui/QWidget>
-#include <QtGui/QPainter>
-#include <QVector>
 #include <Field/cell.h>
 #include <QGraphicsView>
+#include <QVector>
 class robotField : public QGraphicsView
 {
     Q_OBJECT
 public:
-
     explicit robotField(QGraphicsView *parent = 0);
-    //void drawField();
-    void changeFlag();
     ~robotField();
+    void drawRobot();
 protected:
     void mouseReleaseEvent(QMouseEvent *event);
 signals:
-    void mousePressed();
+   // void mousePressed();
 public slots:
-    void drawRobot();
+
+//    void moveRobot(int x,int y);
+//    void rotateRobot(int angle);
+//    void placePion(int x,int y);
    // void drawRobot();
   //  void drawPion();
    // void drawEnemy();
@@ -33,8 +32,11 @@ private:
     cell field[N][M];
     bool flag;
   //  QPainter *myP;
-    QGraphicsScene *scene;
-    QGraphicsRectItem *robot;    
+    QGraphicsScene *scene;//ПОЛЕ
+    QGraphicsRectItem *robot;   //РОБОТ
+    QVector<QGraphicsItem*> *pions;//ПЕШКИ
+    QPointF *robotCenter;//Центр робота, вокруг которого вращаемся
+
     QSize cellSize;
     QSize startzoneSize;
     QSize greenzoneSize;
@@ -44,7 +46,6 @@ private:
     QPoint startzones[2];
     QPoint greenzones[2];
     QPoint blackLines[2];
-
 
 };
 

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'robotfield.h'
 **
-** Created: Thu 28. Apr 13:54:50 2011
+** Created: Thu 28. Apr 15:01:16 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,24 +23,18 @@ static const uint qt_meta_data_robotField[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       0,    0, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
-
- // signals: signature, parameters, type, tag, flags
-      12,   11,   11,   11, 0x05,
-
- // slots: signature, parameters, type, tag, flags
-      27,   11,   11,   11, 0x0a,
+       0,       // signalCount
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_robotField[] = {
-    "robotField\0\0mousePressed()\0drawRobot()\0"
+    "robotField\0"
 };
 
 const QMetaObject robotField::staticMetaObject = {
@@ -70,20 +64,6 @@ int robotField::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QGraphicsView::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        switch (_id) {
-        case 0: mousePressed(); break;
-        case 1: drawRobot(); break;
-        default: ;
-        }
-        _id -= 2;
-    }
     return _id;
-}
-
-// SIGNAL 0
-void robotField::mousePressed()
-{
-    QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }
 QT_END_MOC_NAMESPACE

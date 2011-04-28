@@ -9,7 +9,7 @@
 robotField::robotField(QGraphicsView *parent) :
     QGraphicsView(parent)
 {
-    connect(this,SIGNAL(mousePressed()),this,SLOT(drawRobot()));
+    //connect(this,SIGNAL(mousePressed()),this,SLOT(drawRobot()));
     initZonesSize();
     //widget = new QGraphicsWidget();
     scene = new QGraphicsScene();
@@ -22,15 +22,8 @@ robotField::robotField(QGraphicsView *parent) :
 
     setScene(scene);
     drawField();
-    robot=(scene->addRect(0,0,23,34,QPen(Qt::cyan),QBrush(Qt::cyan)));
-
- //
-
-    robot->setFlag(QGraphicsItem::ItemIsMovable);
-
-    robot->setData(0,"Robot");
+    drawRobot();
     // *(scene->addRect(10,10,10,10));
-
 }
 void robotField::drawField()
 {
@@ -63,19 +56,20 @@ void robotField::mouseReleaseEvent(QMouseEvent *event)
 {
     qDebug("hello");
 
-    emit{mousePressed();}
+    //emit{mousePressed();}
 }
 
 void robotField::drawRobot()
 {
-   robot->setTransformOriginPoint(11.5,17);
-   robot->setRotation(robot->rotation()+15);
- //  qDebug()<<;
+    robot=(scene->addRect(0,0,23,34,QPen(Qt::cyan),QBrush(Qt::cyan)));
+    robotCenter=new QPointF(11.5,17);
+    robot->setTransformOriginPoint(*robotCenter);
 
-   // robot->moveBy(20,0);
-    qDebug()<<robot->x()<<" "<<robot->y();
-   //robot->translate(50,50);
-   //robot->setRotation(0);
+    robot->setFlag(QGraphicsItem::ItemIsMovable);
+
+    robot->setData(0,"Robot");
+   //robot->setRotation(robot->rotation()+15);
+   //qDebug()<<robot->x()<<" "<<robot->y();
 }
 
 void robotField::initZonesSize()
@@ -105,10 +99,7 @@ void robotField::initZonesSize()
     blackLines[1].setY(0);
 }
 
-void robotField::changeFlag()
-{
-    flag= !flag;
-}
+
 
 robotField::~robotField()
 {
