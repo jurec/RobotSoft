@@ -16,6 +16,8 @@ INPUT(
 ./release/cell.o
 ./release/command.o
 ./release/robotparameters.o
+./release/moveforwardcommand.o
+./release/taskrunner.o
 ./release/moc_tcpsocketdevice.o
 ./release/moc_startstopdevice.o
 ./release/moc_modbusdevice.o
@@ -26,4 +28,6 @@ INPUT(
 ./release/moc_cell.o
 ./release/moc_command.o
 ./release/moc_robotparameters.o
+./release/moc_moveforwardcommand.o
+./release/moc_taskrunner.o
 );

@@ -15,18 +15,22 @@ robot::robot(QObject *parent) :
 void robot::displayData()
 {
     qDebug("some data arrived");
-    robotCamera.readAll();
-    robotCamera.clearBuffer();
+    robotCamera->readAll();
+    robotCamera->clearBuffer();
     //qDebug();
 }
 
 void robot::init_devices()
 {
 /***************Инициализирует устройства робота
+  Создает новые устройства
 Считывает натсройки каждого из устройств  из файла командой readSettings
 Проверяет все ли устройства готовы к работе
 Если нет выдает сообщение об ошибке
 Если все устроцства готовы, ждет стартового сигнала от системы стоп-остановка(ssSystem)******************/
+robotEngine = new engineDevice();
+robotTong = new tongDevice();
+robotCamera = new camera();
 //readSettings();
 //if(!robotCamera.open()) qDebug("Cannot connect to Camera");
 // std::cout<<robotTong.getDeviceAddress()<<" "<<robotTong.getComPort().toStdString();
@@ -43,11 +47,11 @@ void robot::readSettings()
  sett->endGroup();
 
  sett->beginGroup("Tong");
-    robotTong.setDeviceAddress(sett->value("deviceAddress").toInt());
-    robotTong.setComPort(sett->value("comPort").toString());
-    robotTong.setBaudRate(sett->value("baudRate").toInt());
-    robotTong.setStopBits(sett->value("stopBits").toInt());
-    robotTong.setParity((sett->value("parity").toInt()));
+    robotTong->setDeviceAddress(sett->value("deviceAddress").toInt());
+    robotTong->setComPort(sett->value("comPort").toString());
+    robotTong->setBaudRate(sett->value("baudRate").toInt());
+    robotTong->setStopBits(sett->value("stopBits").toInt());
+    robotTong->setParity((sett->value("parity").toInt()));
  sett->endGroup();
 
  sett->beginGroup("StartStopSystem");
@@ -59,13 +63,13 @@ void robot::readSettings()
  sett->endGroup();
 
  sett->beginGroup("EngineSocket");
-    robotEngine.setSocketAddress(sett->value("hostAddress").toString());
-    robotEngine.setPortName(sett->value("portName").toInt());
+    robotEngine->setSocketAddress(sett->value("hostAddress").toString());
+    robotEngine->setPortName(sett->value("portName").toInt());
  sett->endGroup();
 
  sett->beginGroup("cameraSocket");
-    robotCamera.setSocketAddress(sett->value("hostAddress").toString());
-    robotCamera.setPortName(sett->value("portName").toInt());
+    robotCamera->setSocketAddress(sett->value("hostAddress").toString());
+    robotCamera->setPortName(sett->value("portName").toInt());
  sett->endGroup();
 
  sett->beginGroup("RobotDimensions");
@@ -100,10 +104,10 @@ void robot::writeSettings()
 //    sett->endGroup();
 
     sett->beginGroup("Tong");
-        sett->setValue("deviceAddress",robotTong.getDeviceAddress());
-        sett->setValue("comPort",robotTong.getComPort());
-        sett->setValue("baudRate",robotTong.getBaudRate());
-        sett->setValue("stopBits",robotTong.getStopBits());
+        sett->setValue("deviceAddress",robotTong->getDeviceAddress());
+        sett->setValue("comPort",robotTong->getComPort());
+        sett->setValue("baudRate",robotTong->getBaudRate());
+        sett->setValue("stopBits",robotTong->getStopBits());
         sett->setValue("parity",'E');
     sett->endGroup();
 
@@ -124,8 +128,8 @@ void robot::writeSettings()
 //    sett->endGroup();
 
     sett->beginGroup("EngineSocket");
-    sett->setValue("hostAddress",robotEngine.getSocketAddress());
-    sett->setValue("portName",robotEngine.getPortName());
+    sett->setValue("hostAddress",robotEngine->getSocketAddress());
+    sett->setValue("portName",robotEngine->getPortName());
 //        sett->setValue("hostAddress","127.0.0.1");
 //        sett->setValue("portName",39999);
     sett->endGroup();
@@ -133,8 +137,8 @@ void robot::writeSettings()
     sett->beginGroup("cameraSocket");
 //        sett->setValue("hostAddress","172.16.2.59");
 //        sett->setValue("portName",9050);
-        sett->setValue("hostAddress",robotCamera.getSocketAddress());
-        sett->setValue("portName",robotCamera.getPortName());
+        sett->setValue("hostAddress",robotCamera->getSocketAddress());
+        sett->setValue("portName",robotCamera->getPortName());
     sett->endGroup();
 
     sett->beginGroup("RobotDimensions");
@@ -172,41 +176,42 @@ void robot::simple_action(int angle, int distance,bool isForwardDirection, bool 
 /*Команды схвата*/
 void robot::torqueOff()
 {
-    robotTong.sendCommand(robotCommands::TORQUE_OFF);
+  //  robotTong.sendCommand(robotCommands::TORQUE_OFF);
 }
 void robot::pickUp()
 {
-    robotTong.sendCommand(robotCommands::CATCH_UP);
+   // robotTong.sendCommand(robotCommands::CATCH_UP);
 }
 void robot::putOff()
 {
-    robotTong.sendCommand(robotCommands::DOWN_RELEASE);
+//    robotTong.sendCommand(robotCommands::DOWN_RELEASE);
+
 }
 void robot::putOnPion()
 {
-    robotTong.sendCommand(robotCommands::DOWN_RELEASE);
+   // robotTong.sendCommand(robotCommands::DOWN_RELEASE);
 }
 /*Конец командам схвата*/
 
 /*Команды двигателя*/
 void robot::turn(int angle)
 {
-    setAngle(getAngle()+angle);
-    robotEngine.sendCommand(robotCommands::TURN,angle);
+   // setAngle(getAngle()+angle);
+  //  robotEngine.sendCommand(robotCommands::TURN,angle);
 }
 
 void robot::moveBackward(int distance)
 {
-    robotCoordinate+=QPoint(qSin(getAngle())*distance, qCos(getAngle())*distance);
-    robotEngine.sendCommand(robotCommands::BACKWARD,distance);
+    //robotCoordinate+=QPoint(qSin(getAngle())*distance, qCos(getAngle())*distance);
+   // robotEngine.sendCommand(robotCommands::BACKWARD,distance);
 }
 void robot::moveForward(int distance)
 {
-    robotCoordinate-=QPoint(qSin(getAngle())*distance, qCos(getAngle())*distance);
-    robotEngine.sendCommand(robotCommands::FORWARD,distance);
+    //robotCoordinate-=QPoint(qSin(getAngle())*distance, qCos(getAngle())*distance);
+    //robotEngine.sendCommand(robotCommands::FORWARD,distance);
 }
 
 void robot::stopRobot()
 {
-    robotEngine.sendCommand(robotCommands::STOP,255);
+  //  robotEngine.sendCommand(robotCommands::STOP,255);
 }

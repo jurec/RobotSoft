@@ -19,7 +19,6 @@ public:
     explicit robot(QObject *parent = 0);
     void action();
     ~robot();
-   // enum teamColors{RED=0,BLUE=1};
     //Команды которые может выполнять робот
         //команды схвата
     void pickUp();//Схватить пешку и
@@ -40,38 +39,27 @@ public:
 
     QString getTongState();
 
-  //  void setXCoordinate(int coord){xCoordinate=coord;}
-   // void setYCoordinate(int coord){yCoordinate=coord;}
-    //void changeRobotCoordinate(int x,int y){robotCoordinate.x+=x;robotCoordinate.y+=y;}
-
     void setAngle(int angle_){angle=angle_;}
     void setWidth(int width_){robotParameter->robotModel.setWidth(width_);}
     void setLength(int length_){robotParameter->robotModel.setHeight(length_);}
-    void setRobotCenter(){
-        robotParameter->robotCenter.setX(getWidth()/2);
-        robotParameter->robotCenter.setY(getLength()/2);}
     void setRed(){robotParameter->isRed=true;}
     void setBlue(){robotParameter->isRed=false;}
     void setRobotCenter(QPointF point){robotParameter->robotCenter=point;}
-    //QRect getRobot(){return QRect(0,0,25,35);}
-   // QPoint getRobotCoordinate(){return robotCoordinate;}
-  //  int getXCoordinate(){return xCoordinate;}
-  //  int getYCoordinate(){return yCoordinate;}
     int getAngle(){return angle;}
     int getWidth(){return robotParameter->robotModel.width();}
     int getLength(){return robotParameter->robotModel.height();}
     QPointF getRobotCenter(){return robotParameter->robotCenter;}
     robotParameters* getRobotParametrs(){return robotParameter;}
-    void init_devices();
-    void readSettings();
-    void writeSettings();
+    engineDevice* getRobotEngine(){return robotEngine;}
+ //  tongDevice* getRobotTong(){return *robotTong;}
 
-    QPointF robotCoordinate;//Координаты центра робота
+    void init_devices(); //Инициализация устройств
+    void readSettings();//Чтение настроек из файла
+    void writeSettings();//Запись натсроек в файл
 
 signals:
    // void readSettingsError(QString);
 public slots:
-
     void displayData();
     void stop();//Запускается по истечении времени
     void start();//Запускает программу
@@ -81,9 +69,10 @@ private:
     robotParameters *robotParameter;
     int angle;
     startStopDevice ssSystem;
-    camera robotCamera;
-    engineDevice robotEngine;
-    tongDevice robotTong;
+    camera *robotCamera;
+    engineDevice *robotEngine;
+    tongDevice *robotTong;
+   // engineDevice *ed;
     //  engineControlSocket engine;
     //tong robotTong;   
 };

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <robot.h>
 #include <QGraphicsView>
+#include <Command/moveforwardcommand.h>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -12,10 +13,13 @@ int main(int argc, char *argv[])
     robotField *myF=new robotField;
     myRobot->setWidth(23);
     myRobot->setLength(34);
-    myRobot->setRobotCenter();
+    myRobot->setRobotCenter(QPointF(11.5,17));
     myRobot->setRed();
     myF->drawRobot(myRobot->getRobotParametrs());
+    moveForwardCommand move;
+    move.execute(myRobot,255);
     myF->show();
+
 //    myF->show();
 //     std::cout<<sizeof(myF);
    // myF.drawRobot();

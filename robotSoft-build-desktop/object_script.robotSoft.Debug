@@ -16,6 +16,8 @@ INPUT(
 ./debug/cell.o
 ./debug/command.o
 ./debug/robotparameters.o
+./debug/moveforwardcommand.o
+./debug/taskrunner.o
 ./debug/moc_tcpsocketdevice.o
 ./debug/moc_startstopdevice.o
 ./debug/moc_modbusdevice.o
@@ -26,4 +28,6 @@ INPUT(
 ./debug/moc_cell.o
 ./debug/moc_command.o
 ./debug/moc_robotparameters.o
+./debug/moc_moveforwardcommand.o
+./debug/moc_taskrunner.o
 );

@@ -54,8 +54,6 @@ void robotField::drawField()
 
 void robotField::drawRobot()
 {
-
-
     robot->setTransformOriginPoint(*robotCenter);
     robot->setFlag(QGraphicsItem::ItemIsMovable);
     robot->setData(0,"Robot");
@@ -64,10 +62,6 @@ void robotField::drawRobot()
 }
 void robotField::calculateCenter()//Пересчитывает координаты центра
 {
-   robotCenter->setX(
-           (robotRect->topLeft().x()+robotRect->bottomRight().x())/2);
-   robotCenter->setY(
-           (robotRect->topLeft().y()+robotRect->bottomRight().y())/2);
 }
 
 void robotField::drawRobot(robotParameters *robotParameter)
@@ -96,15 +90,36 @@ void robotField::drawRobot(robotParameters *robotParameter)
 void robotField::keyPressEvent(QKeyEvent *event)
 {
     if(event->key()==Qt::Key_Up)
-        moveRobot(10,0);
+        moveRobot(0,-5);
+
+    if(event->key()==Qt::Key_Down)
+        moveRobot(0,5);
+
+    if(event->key()==Qt::Key_Right)
+        moveRobot(5,0);
+
+    if(event->key()==Qt::Key_Left)
+        moveRobot(-5,0);
+    if(event->key()==Qt::Key_0)
+        rotateRobot(15);
 }
 
 void robotField::moveRobot(int x, int y)
 {
     robot->moveBy(x,y);
+
     // Перемещаем робота обновляем координаты
     calculateCenter();
+   // robot->setTransformOriginPoint(*robotCenter);
     qDebug()<<robot->x()<<" "<<robot->y()<<"\n";
+    //qDebug()<<robotCenter->x()<<" "<<robotCenter->y()<<"\n";
+}
+void robotField::rotateRobot(int angle)
+{
+    robot->setRotation(robot->rotation()+angle);
+    qDebug()<<robot->rotation();
+    QMatrix bb = robot->matrix();
+
 }
 
 //void robotField::drawRobot(QPointF &center)

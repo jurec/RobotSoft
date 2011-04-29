@@ -1,5 +1,5 @@
 #include "enginedevice.h"
-
+#include <QDebug>
 engineDevice::engineDevice()
 {
     command[0]=COMMAND_PREFIX;

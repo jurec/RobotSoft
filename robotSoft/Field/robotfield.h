@@ -21,7 +21,7 @@ signals:
    // void mousePressed();
 public slots:
     void moveRobot(int x,int y);
-//    void rotateRobot(int angle);
+    void rotateRobot(int angle);
 //    void placePion(int x,int y);
    // void drawRobot();
   //  void drawPion();

@@ -31,7 +31,9 @@ SOURCES += main.cpp \
     Field/robotfield.cpp \
     Field/cell.cpp \
     Command/command.cpp \
-    robotparameters.cpp
+    robotparameters.cpp \
+    Command/moveforwardcommand.cpp \
+    taskrunner.cpp
 
 HEADERS += \
     Devices/tongdevice.h \
@@ -53,4 +55,6 @@ HEADERS += \
     Field/robotfield.h \
     Field/cell.h \
     Command/command.h \
-    robotparameters.h
+    robotparameters.h \
+    Command/moveforwardcommand.h \
+    taskrunner.h
