@@ -7,8 +7,9 @@ class command : public QObject
     Q_OBJECT
 public:
     explicit command(QObject* parent);
+    //command(QObject *parent,int distance);
     virtual ~command(){}
-    virtual void execute(robot *myRobot,int distance)=0;
+    //virtual void execute(robot *myRobot,int distance)=0;
     virtual void execute(robot *myRobot)=0;
     enum roboCommands{
     FORWARD=1,BACKWARD,LEFT,RIGHT,
@@ -23,15 +24,18 @@ public:
     CATCH_UP=7,
     DOWN_RELEASE=8,
     TORQUE_OFF=10,
-    TORQUE_ENABLE
+    TORQUE_ENABLE,
+    DOWN_ON_PION=12
     };
     void setName(QString s){name = s;}
-   QString getName(){return name;}
+    void setDistance(int d){dist=d;}
+    int getDistance(){return dist;}
+    QString getName(){return name;}
   //  virtual void undo()=0;
 public slots:
 signals:
 private:
-
+    int dist;
     QString name;
 };
 

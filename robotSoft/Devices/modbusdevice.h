@@ -21,10 +21,11 @@ public:
     void setDeviceAddress(const int &deviceAddress_){deviceAddress=deviceAddress_;}
     void setComPort(QString comPort_){comPort=comPort_;}
     virtual ~modbusDevice();
-    bool open();
+    bool isOpen(){return openStatus;}
     bool open(const char *device,
               int baud, char parity, int data_bit,
               int stop_bit);
+    bool open();
     void close();
     void write(const int &registerAddress,const int &data);
     QByteArray read(const int &registerAddress,const int &dataSize);
@@ -33,7 +34,7 @@ public:
 private:
 
     modbus_t* modbus;
-
+    bool openStatus;
     int deviceAddress;
     QString comPort;
     int baudRate;

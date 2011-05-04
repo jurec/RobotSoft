@@ -11,6 +11,7 @@ QT       += network
 TARGET = robotSoft
 CONFIG   += console
 CONFIG   -= app_bundle
+INCLUDEPATH += c:\boost\boost\graph
 
 TEMPLATE = app
 
@@ -26,14 +27,19 @@ SOURCES += main.cpp \
     Modbus/modbus-rtu.c \
     Modbus/modbus-data.c \
     Modbus/modbus.c \
-    robotcommands.cpp \
     robot.cpp \
     Field/robotfield.cpp \
     Field/cell.cpp \
     Command/command.cpp \
     robotparameters.cpp \
     Command/moveforwardcommand.cpp \
-    taskrunner.cpp
+    taskrunner.cpp \
+    Command/movebackwardcommand.cpp \
+    Command/rotatecommand.cpp \
+    Command/stopcommand.cpp \
+    Command/pickupcommand.cpp \
+    Command/putoffcommand.cpp \
+    Command/putonpioncommand.cpp
 
 HEADERS += \
     Devices/tongdevice.h \
@@ -50,11 +56,16 @@ HEADERS += \
     Modbus/modbus-private.h \
     Modbus/modbus.h \
     Modbus/config.h \
-    robotcommands.h \
     robot.h \
     Field/robotfield.h \
     Field/cell.h \
     Command/command.h \
     robotparameters.h \
     Command/moveforwardcommand.h \
-    taskrunner.h
+    taskrunner.h \
+    Command/movebackwardcommand.h \
+    Command/rotatecommand.h \
+    Command/stopcommand.h \
+    Command/pickupcommand.h \
+    Command/putoffcommand.h \
+    Command/putonpioncommand.h

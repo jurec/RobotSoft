@@ -27,15 +27,34 @@ robotField::robotField(QGraphicsView *parent) :
 void robotField::drawField()
 {
     scene->setItemIndexMethod(QGraphicsScene::BspTreeIndex);
+    //—начала заполн€ютс€ различные зоны
     scene->addRect(startzones[0].x(),startzones[0].y(),startzoneSize.width(),startzoneSize.height(),QPen(Qt::gray),QBrush(Qt::gray));
+    field[0][0].setRect(startzones[0].x(),startzones[0].y(),startzoneSize.width(),startzoneSize.height());
+    field[0][0].setType(cell::start);
     scene->addRect(startzones[1].x(),startzones[1].y(),startzoneSize.width(),startzoneSize.height(),QPen(Qt::gray),QBrush(Qt::gray));
-
+    field[0][M-1].setRect(startzones[1].x(),startzones[1].y(),startzoneSize.width(),startzoneSize.height());
+    field[0][M-1].setType(cell::start);
     scene->addRect(greenzones[0].x(),greenzones[0].y(),greenzoneSize.width(),greenzoneSize.height(),QPen(Qt::green),QBrush(Qt::green));
+    for(int i=1;i<M;i++)
+    {
+        int dk=0;
+        (i==1)?dk=5:dk=0;
+            field[i][0].setRect(greenzones[0].x(),greenzones[0].y(),cellSize.width()+10,cellSize.height()-dk);
+            field[i][0].setType(cell::green);
+    }
+    for(int i=1;i<M;i++)
+    {
+        int dk=0;
+        (i==1)?dk=5:dk=0;
+            field[i][N-1].setRect(greenzones[0].x(),greenzones[0].y(),cellSize.width()+10,cellSize.height()-dk);
+            field[i][N-1].setType(cell::green);
+    }
+
     scene->addRect(greenzones[1].x(),greenzones[1].y(),greenzoneSize.width(),greenzoneSize.height(),QPen(Qt::green),QBrush(Qt::green));
 
     scene->addRect(blackLines[0].x(),blackLines[0].y(),blackLineSize.width(),blackLineSize.height(),QPen(Qt::black),QBrush(Qt::black));
     scene->addRect(blackLines[1].x(),blackLines[1].y(),blackLineSize.width(),blackLineSize.height(),QPen(Qt::black),QBrush(Qt::black));
-
+//потом красные и синие клетки
     bool fl=true;
     for(int i=0;i<M;i++)
     { fl=!fl;
@@ -43,6 +62,16 @@ void robotField::drawField()
         {
            cellCoordinates[i][j].setX(45+j*cellSize.width());
            cellCoordinates[i][j].setY(0+i*cellSize.height());
+           field[i+1][j+1].setRect(cellCoordinates[i][j].x(),cellCoordinates[i][j].y(),cellSize.width(),cellSize.height());
+           //ѕоставим бонусные клетки и защищенные зоны
+           if((i==1 && (j==1 || j==4)) || (i==3 && (j==1 || j==4)) || (i==5 && (j==2 || j==3)))
+               field[i+1][j+1].setType(cell::bonus);
+           else
+              field[i+1][j+1].setType(cell::game);
+           if(i==5 && (j!=2 || j!=3))
+               field[i+1][j+1].setType(cell::locked);
+            field[i+1][j+1].setRect(cellCoordinates[i][j].x(),cellCoordinates[i][j].y(),cellSize.width(),cellSize.height());
+
         if(fl)
              scene->addRect(cellCoordinates[i][j].x(),cellCoordinates[i][j].y(),cellSize.width(),cellSize.height(),QPen(Qt::red),QBrush(Qt::red));
         else
@@ -68,9 +97,9 @@ void robotField::drawRobot(robotParameters *robotParameter)
 {
 
    // robotCenter=b->robotCenter;
-    robotCenter = new QPointF(robotParameter->robotCenter);
-    robotRect = new QRect(robotParameter->robotModel);
-    isRed=robotParameter->isRed;
+    robotCenter = new QPointF(robotParameter->getRobotCenter());
+    robotRect = new QRectF(robotParameter->getRobotModel());
+    isRed=robotParameter->isRed();
     if(!isRed)
     {
        robot=(scene->addRect(*robotRect,QPen(Qt::blue),QBrush(Qt::white)));
@@ -90,36 +119,39 @@ void robotField::drawRobot(robotParameters *robotParameter)
 void robotField::keyPressEvent(QKeyEvent *event)
 {
     if(event->key()==Qt::Key_Up)
-        moveRobot(0,-5);
+        moveRobot(-5);
 
     if(event->key()==Qt::Key_Down)
-        moveRobot(0,5);
+        moveRobot(5);
 
     if(event->key()==Qt::Key_Right)
-        moveRobot(5,0);
+        rotateRobot(10);;
 
     if(event->key()==Qt::Key_Left)
-        moveRobot(-5,0);
+        rotateRobot(-10);
     if(event->key()==Qt::Key_0)
         rotateRobot(15);
 }
 
-void robotField::moveRobot(int x, int y)
+//void robotField::moveRobot(int x, int y)
+//{
+//    robot->moveBy(x,y);
+//    // ѕеремещаем робота обновл€ем координаты
+//    calculateCenter();
+//   // robot->setTransformOriginPoint(*robotCenter);
+//    qDebug()<<robot->x()<<" "<<robot->y()<<"\n";
+//    //qDebug()<<robotCenter->x()<<" "<<robotCenter->y()<<"\n";
+//}
+void robotField::moveRobot(int distance)
 {
-    robot->moveBy(x,y);
-
-    // ѕеремещаем робота обновл€ем координаты
-    calculateCenter();
-   // robot->setTransformOriginPoint(*robotCenter);
+    robot->moveBy(qCos(degrees(robot->rotation()))*distance,qSin(degrees(robot->rotation())*distance));
     qDebug()<<robot->x()<<" "<<robot->y()<<"\n";
-    //qDebug()<<robotCenter->x()<<" "<<robotCenter->y()<<"\n";
 }
+
 void robotField::rotateRobot(int angle)
 {
     robot->setRotation(robot->rotation()+angle);
     qDebug()<<robot->rotation();
-    QMatrix bb = robot->matrix();
-
 }
 
 //void robotField::drawRobot(QPointF &center)

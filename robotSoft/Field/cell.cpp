@@ -9,7 +9,3 @@ cell::cell(QColor col, QObject *parent):
     {
 
     }
-void cell::setCoords(int x1, int y1, int x2, int y2)
-{
-    QRect::setCoords(x1,y1,x2,y2);
-}

@@ -4,6 +4,7 @@
 modbusDevice::modbusDevice(QObject *parent) :
     QIODevice(parent)
 {
+    openStatus=false;
 }
 
 modbusDevice::~modbusDevice()
@@ -29,7 +30,8 @@ bool modbusDevice::open()
 {
   modbus=modbus_new_rtu(getComPort().toStdString().c_str(),getBaudRate(),getParity(),getDataBits(),getStopBits());
     modbus_set_slave(modbus,getDeviceAddress());
-   return (! modbus_connect(modbus) );
+    openStatus=(! modbus_connect(modbus) );
+   return openStatus;
 }
 bool modbusDevice::open(const char *device, int baud, char parity, int data_bit, int stop_bit)
 {

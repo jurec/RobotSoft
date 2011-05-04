@@ -6,6 +6,13 @@ moveForwardCommand::moveForwardCommand(QObject *parent) :
 {
     setName("MOVE FORWARD");
 }
+moveForwardCommand::moveForwardCommand(QObject *parent, int distance) :
+    command(parent)
+{
+    setName("MOVE FORWARD "+QString::number(distance));
+    setDistance(distance);
+}
+
 void moveForwardCommand::execute(robot *myRobot, int distance)
 {
     //Движение вперед
@@ -18,11 +25,5 @@ void moveForwardCommand::execute(robot *myRobot, int distance)
             qDebug("Engine not connected");
     }
     //Дальше надо бы пересчитать координаты центра робота
-    myRobot->setRobotCenter(QPointF(
-            qCos(myRobot->getAngle())*distance,
-            qSin(myRobot->getAngle())*distance));
-}
-void moveForwardCommand::execute(robot *myRobot)
-{
-
+    myRobot->getRobotParametrs()->moveRobot(distance);
 }

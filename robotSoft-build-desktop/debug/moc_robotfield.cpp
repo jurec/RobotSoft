@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'robotfield.h'
 **
-** Created: Fri 29. Apr 11:48:19 2011
+** Created: Tue 3. May 18:10:50 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -31,14 +31,14 @@ static const uint qt_meta_data_robotField[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      16,   12,   11,   11, 0x0a,
-      41,   35,   11,   11, 0x0a,
+      21,   12,   11,   11, 0x0a,
+      42,   36,   11,   11, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_robotField[] = {
-    "robotField\0\0x,y\0moveRobot(int,int)\0"
+    "robotField\0\0distance\0moveRobot(int)\0"
     "angle\0rotateRobot(int)\0"
 };
 
@@ -71,7 +71,7 @@ int robotField::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: moveRobot((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 0: moveRobot((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 1: rotateRobot((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }

@@ -1,7 +1,7 @@
 #ifndef ENGINEDEVICE_H
 #define ENGINEDEVICE_H
 #include <Devices/tcpsocketdevice.h>
-#include <robotcommands.h>
+
 class engineDevice : public tcpSocketDevice
 {
 public:

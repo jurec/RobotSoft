@@ -3,7 +3,7 @@
 #include <QObject>
 #include <QRect>
 #include <QtGui/QColor>
-class cell : public QObject, QRect
+class cell : public QObject,public QRect
 {
     Q_OBJECT
 public:
@@ -13,11 +13,12 @@ public:
     enum state{EMPTY,MIXED,FULL};
     void setType(int type){cellType=type;}
     void setColor(QColor col){cellColor=col;}
-    void setSize(const QSize &s){setSize(s);}
+    //void setSize(const QSize &s){setSize(s);}
     void setEmpty(){state=EMPTY;}
     void setFull(){state=FULL;}
     void setMixed(){state=MIXED;}
-    void setCoords(int x1, int y1, int x2, int y2);
+    //void setCoords(int x1, int y1, int x2, int y2);
+
 signals:
 
 public slots:

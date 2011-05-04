@@ -1,7 +1,6 @@
 #ifndef TONGDEVICE_H
 #define TONGDEVICE_H
 #include <Devices/modbusdevice.h>
-#include <robotcommands.h>
 class tongDevice : public modbusDevice
 {
 public:

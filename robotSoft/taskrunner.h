@@ -6,18 +6,23 @@
 #include <QVector>
 #include <Command/command.h>
 #include <QQueue>
+#include <robot.h>
+#include <QDebug>
 class taskRunner : public QObject
 {
     Q_OBJECT
+
 public:
     explicit taskRunner(QObject *parent = 0);
-    QQueue<command*> tasks;
-    void runTasks();
-    void addTask(command* com){tasks.push_back(com);}
+
+    void runTasks(robot *myRobot);
+    void addTask(command* com){tasks.enqueue(com);}
+
 signals:
 
 public slots:
 private:
+    QQueue<command*> tasks;
 };
 
 #endif // TASKRUNNER_H

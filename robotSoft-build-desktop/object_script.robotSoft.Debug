@@ -10,7 +10,6 @@ INPUT(
 ./debug/modbus-rtu.o
 ./debug/modbus-data.o
 ./debug/modbus.o
-./debug/robotcommands.o
 ./debug/robot.o
 ./debug/robotfield.o
 ./debug/cell.o
@@ -18,11 +17,16 @@ INPUT(
 ./debug/robotparameters.o
 ./debug/moveforwardcommand.o
 ./debug/taskrunner.o
+./debug/movebackwardcommand.o
+./debug/rotatecommand.o
+./debug/stopcommand.o
+./debug/pickupcommand.o
+./debug/putoffcommand.o
+./debug/putonpioncommand.o
 ./debug/moc_tcpsocketdevice.o
 ./debug/moc_startstopdevice.o
 ./debug/moc_modbusdevice.o
 ./debug/moc_camera.o
-./debug/moc_robotcommands.o
 ./debug/moc_robot.o
 ./debug/moc_robotfield.o
 ./debug/moc_cell.o
@@ -30,4 +34,10 @@ INPUT(
 ./debug/moc_robotparameters.o
 ./debug/moc_moveforwardcommand.o
 ./debug/moc_taskrunner.o
+./debug/moc_movebackwardcommand.o
+./debug/moc_rotatecommand.o
+./debug/moc_stopcommand.o
+./debug/moc_pickupcommand.o
+./debug/moc_putoffcommand.o
+./debug/moc_putonpioncommand.o
 );

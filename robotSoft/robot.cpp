@@ -1,5 +1,4 @@
 #include "robot.h"
-#include <robotcommands.h>
 #include <QSettings>
 #include <iostream>
 #include <QtGlobal>
@@ -36,7 +35,8 @@ robotCamera = new camera();
 // std::cout<<robotTong.getDeviceAddress()<<" "<<robotTong.getComPort().toStdString();
 //  if(!robotTong.open())   qDebug("Tong not open");
 //if(!robotEngine.open()) qDebug("Cannot connect to Engine");
-    ssSystem.waitForStart();
+
+//ssSystem.waitForStart(); Чтобы запустить раскомментировать
 }
 void robot::readSettings()
 {
@@ -73,8 +73,8 @@ void robot::readSettings()
  sett->endGroup();
 
  sett->beginGroup("RobotDimensions");
-   setWidth(sett->value("width",35).toInt());
-   setLength(sett->value("length",25).toInt());
+  // setWidth(sett->value("width",35).toInt());
+  // setLength(sett->value("length",25).toInt());
 sett->endGroup();
 delete sett;
 }
@@ -142,20 +142,15 @@ void robot::writeSettings()
     sett->endGroup();
 
     sett->beginGroup("RobotDimensions");
-        sett->setValue("width",getWidth());
-        sett->setValue("length",getLength());
+     //   sett->setValue("width",getWidth());
+      //  sett->setValue("length",getLength());
     sett->endGroup();
-
     delete sett;
 }
 
 robot::~robot()
 {
    // robotEngine.close();
-}
-QString robot::getTongState()
-{
-   return "1";//return robotTong.readCurrentCommand();
 }
 void robot::start()
 {
@@ -172,46 +167,44 @@ void robot::simple_action(int angle, int distance,bool isForwardDirection, bool 
     //turn(angle);
   // torqueOff();
 }
-
 /*Команды схвата*/
-void robot::torqueOff()
-{
-  //  robotTong.sendCommand(robotCommands::TORQUE_OFF);
-}
-void robot::pickUp()
-{
-   // robotTong.sendCommand(robotCommands::CATCH_UP);
-}
-void robot::putOff()
-{
-//    robotTong.sendCommand(robotCommands::DOWN_RELEASE);
+//void robot::torqueOff()
+//{
+//  //  robotTong.sendCommand(robotCommands::TORQUE_OFF);
+//}
+//void robot::pickUp()
+//{
+//   // robotTong.sendCommand(robotCommands::CATCH_UP);
+//}
+//void robot::putOff()
+//{
+////    robotTong.sendCommand(robotCommands::DOWN_RELEASE);
 
-}
-void robot::putOnPion()
-{
-   // robotTong.sendCommand(robotCommands::DOWN_RELEASE);
-}
+//}
+//void robot::putOnPion()
+//{
+//   // robotTong.sendCommand(robotCommands::DOWN_RELEASE);
+//}
 /*Конец командам схвата*/
 
 /*Команды двигателя*/
-void robot::turn(int angle)
-{
-   // setAngle(getAngle()+angle);
-  //  robotEngine.sendCommand(robotCommands::TURN,angle);
-}
+//void robot::turn(int angle)
+//{
+//   // setAngle(getAngle()+angle);
+//  //  robotEngine.sendCommand(robotCommands::TURN,angle);
+//}
 
-void robot::moveBackward(int distance)
-{
-    //robotCoordinate+=QPoint(qSin(getAngle())*distance, qCos(getAngle())*distance);
-   // robotEngine.sendCommand(robotCommands::BACKWARD,distance);
-}
-void robot::moveForward(int distance)
-{
-    //robotCoordinate-=QPoint(qSin(getAngle())*distance, qCos(getAngle())*distance);
-    //robotEngine.sendCommand(robotCommands::FORWARD,distance);
-}
-
-void robot::stopRobot()
-{
-  //  robotEngine.sendCommand(robotCommands::STOP,255);
-}
+//void robot::moveBackward(int distance)
+//{
+//    //robotCoordinate+=QPoint(qSin(getAngle())*distance, qCos(getAngle())*distance);
+//   // robotEngine.sendCommand(robotCommands::BACKWARD,distance);
+//}
+//void robot::moveForward(int distance)
+//{
+//    //robotCoordinate-=QPoint(qSin(getAngle())*distance, qCos(getAngle())*distance);
+//    //robotEngine.sendCommand(robotCommands::FORWARD,distance);
+//}
+//void robot::stopRobot()
+//{
+//  //  robotEngine.sendCommand(robotCommands::STOP,255);
+//}
